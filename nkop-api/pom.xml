@@ -14,14 +14,43 @@
         <module>nkop-eureka-server</module>
         <module>nkop-config-server</module>
         <module>nkop-zuul-server</module>
-        <module>nkop-domain</module>
+        <module>nkop-interface</module>
     </modules>
 
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
         <java.version>1.8</java.version>
+        <nkop.version>1.0-SNAPSHOT</nkop.version>
+        <druid.version>1.0.18</druid.version>
     </properties>
+
+    <!-- 不同的打包环境 -->
+    <profiles>
+        <profile>
+            <id>test</id>
+            <properties>
+                <o2o-env>test</o2o-env>
+            </properties>
+        </profile>
+        <!-- 开发环境 -->
+        <profile>
+            <id>dev</id>
+            <properties>
+                <o2o-env>dev</o2o-env>
+            </properties>
+            <activation>
+                <activeByDefault>true</activeByDefault>
+            </activation>
+        </profile>
+        <!-- 生产环境 -->
+        <profile>
+            <id>prod</id>
+            <properties>
+                <o2o-env>prod</o2o-env>
+            </properties>
+        </profile>
+    </profiles>
 
     <dependencyManagement>
         <dependencies>
@@ -41,7 +70,52 @@
                 <type>pom</type>
                 <scope>import</scope>
             </dependency>
+            <!--mapper-->
+            <dependency>
+                <groupId>tk.mybatis</groupId>
+                <artifactId>mapper-spring-boot-starter</artifactId>
+                <version>1.1.0</version>
+            </dependency>
+            <!--pagehelper-->
+            <dependency>
+                <groupId>com.github.pagehelper</groupId>
+                <artifactId>pagehelper-spring-boot-starter</artifactId>
+                <version>1.1.0</version>
+            </dependency>
+            <!-- common -->
+            <dependency>
+                <groupId>org.apache.commons</groupId>
+                <artifactId>commons-lang3</artifactId>
+                <version>3.3.2</version>
+            </dependency>
+            <dependency>
+                <groupId>commons-beanutils</groupId>
+                <artifactId>commons-beanutils</artifactId>
+                <version>1.9.2</version>
+            </dependency>
 
+            <dependency>
+                <groupId>commons-collections</groupId>
+                <artifactId>commons-collections</artifactId>
+                <version>3.2.1</version>
+            </dependency>
+            <!-- 阿里巴巴数据连接池监控 -->
+            <dependency>
+                <groupId>com.alibaba</groupId>
+                <artifactId>druid</artifactId>
+                <version>${druid.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>com.newkdd</groupId>
+                <artifactId>nkop-framework</artifactId>
+                <version>${nkop.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.newkdd</groupId>
+                <artifactId>nkop-interface</artifactId>
+                <version>${nkop.version}</version>
+            </dependency>
         </dependencies>
 
     </dependencyManagement>

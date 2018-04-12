@@ -1,0 +1,33 @@
+server:
+  port: 7001
+  context-path: /
+
+spring:
+  application:
+    name: newkdd-admin-server
+  cloud:
+    config:
+      name: nkop-config
+      profile:  dev
+      discovery:
+        enabled: true
+        service-id: newkdd-config-server
+  profiles:
+    active: dev
+    include:  swagger
+
+eureka:
+  instance:
+    prefer-ip-address:  true
+    instance-id:  ${spring.cloud.client.ipAddress}:${server.port}
+    hostname: localhost
+  client:
+    serviceUrl:
+      defaultZone:  http://${eureka.instance.hostname}:8888/eureka/
+
+logging:
+  level:
+    tk:
+      mybatis: ${logging.level.tk.mybatis}
+    com:
+      newkdd: ${logging.level.com.joywink}

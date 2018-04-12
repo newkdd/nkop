@@ -9,26 +9,7 @@
     </parent>
     <modelVersion>4.0.0</modelVersion>
 
-    <artifactId>nkop-admin-service</artifactId>
-
-    <dependencies>
-        <!-- 服务注册所需环境 -->
-        <dependency>
-            <groupId>org.springframework.cloud</groupId>
-            <artifactId>spring-cloud-starter-eureka</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-configuration-processor</artifactId>
-            <optional>true</optional>
-        </dependency>
-        <!-- 开发框架依赖 -->
-        <dependency>
-            <groupId>com.newkdd</groupId>
-            <artifactId>nkop-interface</artifactId>
-        </dependency>
-    </dependencies>
-
+    <artifactId>nkop-interface</artifactId>
     <build>
         <plugins>
             <plugin>
@@ -41,5 +22,12 @@
             </plugin>
         </plugins>
     </build>
+
+    <dependencies>
+        <dependency>
+            <groupId>com.newkdd</groupId>
+            <artifactId>nkop-framework</artifactId>
+        </dependency>
+    </dependencies>
 
 </project>
