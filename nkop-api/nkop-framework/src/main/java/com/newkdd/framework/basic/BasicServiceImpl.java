@@ -255,7 +255,7 @@ public abstract class BasicServiceImpl< T extends BasicPO> implements BasicServi
                 example.setOrderByClause(DEFULT_SORT);
             }
         } catch (Exception e) {
-            throw new BizException(e.getMessage(),e.getMessage(), e);
+            throw new BizException(Constant.EXCEPTION.DEFAULT,e.getMessage());
         }
         return example;
     }

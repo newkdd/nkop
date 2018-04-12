@@ -19,4 +19,9 @@ public final class Constant {
             public final Integer NO = 0;
         }
     }
+
+    public static interface EXCEPTION{
+        public final String DEFAULT = "EK.ERR.000000";
+
+    }
 }

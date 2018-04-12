@@ -3,63 +3,65 @@ package com.newkdd.framework.exception;
 
 public class BizException extends RuntimeException{
 
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = 1L;
 	
 	/**异常编码*/
-	private String errorCode = "NKOP-000000";
-	/**异常描述*/
-	private String errorMessage = "UNDEFINED";
-	/**国际化中的Key，去掉 .CODE  .MESSAGE*/
-	private String messageKey ;
+	private String code = "";
+	/**请求返回状态码*/
+	private Integer responseStatus = null;
 
-	
-	public BizException() {
-
+	/**
+	 * 从国际化里面获取错误描述
+	 * @param code * 错误码
+	 */
+	public BizException(String code){
+		this.code = code;
 	}
 
 	/**
-	 * 使用国际化来初始化错误信息
-	 * @param messageKey * 国际化中的KEY，去掉 .CODE  .MESSAGE
+	 * @param code * 错误码
+	 * @param message * 错误描述
 	 */
-	public BizException(String messageKey) {
-		this.messageKey = messageKey;
-	}
-
 	public BizException(String code, String message) {
-		this.errorCode = code;
-		this.errorMessage = message;
+		super(message);
+		this.code = code;
 	}
 
-	public BizException(String code, String message, Throwable cause) {
-		super(cause);
-		this.errorCode = code;
-		this.errorMessage = message;
+	/**
+	 * @param code * 错误码
+	 * @param responseStatus * http状态码
+	 */
+	public BizException(String code, Integer responseStatus) {
+		this.code = code;
+		this.responseStatus = responseStatus;
 	}
 
-	public String getErrorCode() {
-		return errorCode;
+
+	/**
+	 * @param code * 错误码
+	 * @param message * 错误描述
+	 * @param responseStatus * http状态码
+	 */
+	public BizException(String code, String message, Integer responseStatus) {
+		super(message);
+		this.code = code;
+		this.responseStatus = responseStatus;
 	}
 
-	public void setErrorCode(String errorCode) {
-		this.errorCode = errorCode;
+
+	public String getCode() {
+		return code;
 	}
 
-	public String getErrorMessage() {
-		return errorMessage;
+	public void setCode(String code) {
+		this.code = code;
 	}
 
-	public void setErrorMessage(String errorMessage) {
-		this.errorMessage = errorMessage;
+	public Integer getResponseStatus() {
+		return responseStatus;
 	}
 
-	public String getMessageKey() {
-		return messageKey;
-	}
-
-	public void setMessageKey(String messageKey) {
-		this.messageKey = messageKey;
+	public void setResponseStatus(Integer responseStatus) {
+		this.responseStatus = responseStatus;
 	}
 }

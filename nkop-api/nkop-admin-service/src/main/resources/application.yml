@@ -1,0 +1,10 @@
+#Data Source
+druid:
+  url:  ${framework.druid.url}
+  driver-class: ${framework.druid.driver-class}
+  username: ${framework.druid.username}
+  password: ${framework.druid.password}
+  initial-size: ${framework.druid.initial-size}
+  min-idle: ${framework.druid.min-idle}
+  max-active: ${framework.druid.max-active}
+  test-on-borrow: ${framework.druid.test-on-borrow}
