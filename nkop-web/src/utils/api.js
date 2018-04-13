@@ -15,11 +15,13 @@ axios.interceptors.response.use(data=> {
   return data;
 }, err=> {
   if (err.response.status == 504||err.response.status == 404) {
-    Message.error({message: '服务器被吃了⊙﹏⊙∥'});
+    Message.error({message: err.response.data.error||'服务器被吃了⊙﹏⊙∥'});
   } else if (err.response.status == 403) {
-    Message.error({message: '权限不足,请联系管理员!'});
+    Message.error({message: err.response.data.error||'权限不足,请联系管理员!'});
+  } else if (err.response.status == 401) {
+    Message.error({message: err.response.data.error||'没有权限（令牌、用户名、密码错误）'});
   }else {
-    Message.error({message: '未知错误!'});
+    Message.error({message: err.response.data.error||'未知错误!'});
   }
   return Promise.resolve(err);
 })

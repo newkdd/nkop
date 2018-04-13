@@ -79,11 +79,11 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 PrintWriter out = httpServletResponse.getWriter();
                 String errorCode = "";
                 if (e instanceof UsernameNotFoundException || e instanceof BadCredentialsException) {
-                    errorCode = "EK.ERR.400001";
+                    errorCode = "EK.ERR.401001";
                 } else if (e instanceof DisabledException) {
-                    errorCode = "EK.ERR.400003";
+                    errorCode = "EK.ERR.401003";
                 } else {
-                    errorCode = "EK.ERR.400004";
+                    errorCode = "EK.ERR.401004";
                 }
                 Locale locale = LocaleContextHolder.getLocale();
                 String message = messageSource.getMessage(errorCode,null,locale);

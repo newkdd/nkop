@@ -39,7 +39,7 @@ public class UrlFilterInvocationSecurityMetadataSource implements FilterInvocati
                 int size = sysRoles.size();
                 String[] values = new String[size];
                 for (int i = 0; i < size; i++) {
-                    values[i] = sysRoles.get(i).getName();
+                    values[i] = sysRoles.get(i).getCode();
                 }
                 return SecurityConfig.createList(values);
             }

@@ -41,7 +41,7 @@
           if (resp && resp.status == 200) {
             debugger;
             var data = resp.data;
-            _this.$store.commit('login', data.msg);
+            _this.$store.commit('login', data);
             var path = _this.$route.query.redirect;
             _this.$router.replace({path: path == '/' || path == undefined ? '/home' : path});
           }

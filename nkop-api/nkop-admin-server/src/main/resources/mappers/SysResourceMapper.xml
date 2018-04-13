@@ -9,14 +9,14 @@
         <result column="PATH" property="path" jdbcType="VARCHAR"/>
         <result column="COMPONENT" property="component" javaType="java.lang.Object"/>
         <result column="NAME" property="name" jdbcType="VARCHAR"/>
-        <result column="ICON_CLASS" property="iconCls" jdbcType="VARCHAR"/>
+        <result column="ICON_CLASS" property="iconClass" jdbcType="VARCHAR"/>
         <result column="KEEP_ALIVE" property="keepAlive" jdbcType="BIT"/>
         <result column="PARENT_ID" property="parentId" jdbcType="VARCHAR"/>
         <association property="resourceMeta" javaType="com.newkdd.admin.model.entity.ResourceMeta">
             <result column="KEEP_ALIVE" property="keepAlive"/>
             <result column="REQUIRE_AUTH" property="requireAuth"/>
         </association>
-        <collection property="roles" ofType="com.newkdd.admin.model.po.SysRolePO">
+        <collection property="sysRoles" ofType="com.newkdd.admin.model.po.SysRolePO">
             <id column="ROLE_ID" property="id"/>
             <result column="ROLE_NAME" property="name"/>
             <result column="ROLE_CODE" property="code"/>

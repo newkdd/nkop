@@ -23,6 +23,8 @@ public class UserInfo implements UserDetails {
     private String password;
     /** 是否有效*/
     private boolean enabled;
+    /** 角色*/
+    private List<Role> roles;
 
     public String getId() {
         return id;
@@ -36,10 +38,11 @@ public class UserInfo implements UserDetails {
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
         List<GrantedAuthority> authorities = new ArrayList<>();
-        //TODO
-//        for (Role role : roles) {
-//            authorities.add(new SimpleGrantedAuthority(role.getName()));
-//        }
+        if(null!=roles&&roles.size()>0){
+            for (Role role : roles) {
+                authorities.add(new SimpleGrantedAuthority(role.getCode()));
+            }
+        }
         return authorities;
     }
     @JsonIgnore
@@ -86,5 +89,43 @@ public class UserInfo implements UserDetails {
 
     public void setEnabled(boolean enabled) {
         this.enabled = enabled;
+    }
+
+    public List<Role> getRoles() {
+        return roles;
+    }
+
+    public void setRoles(List<Role> roles) {
+        this.roles = roles;
+    }
+
+    public static class Role{
+        private String code;
+        private String name;
+
+        public Role(){
+
+        }
+
+        public Role(String code,String name){
+            this.code = code;
+            this.name = name;
+        }
+
+        public String getCode() {
+            return code;
+        }
+
+        public void setCode(String code) {
+            this.code = code;
+        }
+
+        public String getName() {
+            return name;
+        }
+
+        public void setName(String name) {
+            this.name = name;
+        }
     }
 }
