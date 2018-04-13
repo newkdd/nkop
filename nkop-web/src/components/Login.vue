@@ -34,12 +34,12 @@
       submitClick: function () {
         var _this = this;
         this.loading = true;
-        this.postRequest('/login', {
-          username: this.loginForm.username,
+        this.postRequest('/login', {username: this.loginForm.username,
           password: this.loginForm.password
         }).then(resp=> {
           _this.loading = false;
           if (resp && resp.status == 200) {
+            debugger;
             var data = resp.data;
             _this.$store.commit('login', data.msg);
             var path = _this.$route.query.redirect;

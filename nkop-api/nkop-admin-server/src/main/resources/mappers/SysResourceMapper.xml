@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!--客户映射 指定到dao接口 -->
+<mapper namespace="com.newkdd.admin.dao.SysResourceDAO">
+
+    <resultMap id="BaseResultMap" type="com.newkdd.admin.model.entity.SysResourceRole">
+        <id column="ID" property="id" jdbcType="VARCHAR"/>
+        <result column="URL" property="url" jdbcType="VARCHAR"/>
+        <result column="PATH" property="path" jdbcType="VARCHAR"/>
+        <result column="COMPONENT" property="component" javaType="java.lang.Object"/>
+        <result column="NAME" property="name" jdbcType="VARCHAR"/>
+        <result column="ICON_CLASS" property="iconCls" jdbcType="VARCHAR"/>
+        <result column="KEEP_ALIVE" property="keepAlive" jdbcType="BIT"/>
+        <result column="PARENT_ID" property="parentId" jdbcType="VARCHAR"/>
+        <association property="resourceMeta" javaType="com.newkdd.admin.model.entity.ResourceMeta">
+            <result column="KEEP_ALIVE" property="keepAlive"/>
+            <result column="REQUIRE_AUTH" property="requireAuth"/>
+        </association>
+        <collection property="roles" ofType="com.newkdd.admin.model.po.SysRolePO">
+            <id column="ROLE_ID" property="id"/>
+            <result column="ROLE_NAME" property="name"/>
+            <result column="ROLE_CODE" property="code"/>
+        </collection>
+    </resultMap>
+
+    <select id="getResourceRoles" resultMap="BaseResultMap">
+        select tr.*,tsr.ID as ROLE_ID,tsr.`NAME` as ROLE_NAME,tsr.`CODE` as ROLE_CODE from TB_SYS_RESOURCE tr left join TB_SYS_RESOURCE_ROLE trr on tr.ID=trr.RESOURCE_ID left join TB_SYS_ROLE tsr on trr.ROLE_ID=tsr.ID WHERE tr.ENABLED=1 and tr.DELETED=0 order by tr.CREATED_DATE desc
+    </select>
+</mapper>
