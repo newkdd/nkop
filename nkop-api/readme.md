@@ -44,7 +44,7 @@ DELETE（DELETE）：从服务器删除资源。
 #### 示例
 ```
 GET /zoos：列出所有动物园
-POST /zoos/search：如果查询条件是不固定的多个，列出符合条件的动物园
+POST /zoos/search：接收对象参数，列出符合条件的动物园
 POST /zoos：新建一个动物园
 GET /zoos/ID：获取某个指定动物园的信息
 PUT /zoos/ID：更新某个指定动物园的信息（提供该动物园的全部信息）

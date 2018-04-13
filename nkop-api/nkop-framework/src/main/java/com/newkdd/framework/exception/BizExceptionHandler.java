@@ -44,10 +44,10 @@ public class BizExceptionHandler {
 			if(StringUtils.isNotBlank(exception.getCode())){
 				Locale locale = LocaleContextHolder.getLocale();
 				errorResponse.setCode(exception.getCode());
-				errorResponse.setMessage(exception.getMessage()==null?messageSource.getMessage(exception.getCode(),null,locale):exception.getMessage());
+				errorResponse.setError(exception.getMessage()==null?messageSource.getMessage(exception.getCode(),null,locale):exception.getMessage());
 			}else {
 				errorResponse.setCode(exception.getCode());
-				errorResponse.setMessage(exception.getMessage());
+				errorResponse.setError(exception.getMessage());
 			}
 			//设置http状态码
 			if(null!=exception.getResponseStatus()){
@@ -56,7 +56,7 @@ public class BizExceptionHandler {
 		}else{
 			Locale locale = LocaleContextHolder.getLocale();
 			errorResponse.setCode(Constant.EXCEPTION.DEFAULT);
-			errorResponse.setMessage(messageSource.getMessage(Constant.EXCEPTION.DEFAULT,null,locale));
+			errorResponse.setError(messageSource.getMessage(Constant.EXCEPTION.DEFAULT,null,locale));
 		}
 		errorResponse.setStack(getExceptionDetail(ex));
 		return errorResponse;
