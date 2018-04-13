@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!--客户映射 指定到dao接口 -->
+<mapper namespace="com.newkdd.admin.dao.SysRoleDAO">
+
+    <resultMap id="BaseResultMap" type="com.newkdd.admin.model.po.SysRolePO">
+        <id column="ID" property="id"/>
+        <result column="CODE" property="code"/>
+        <result column="NAME" property="name"/>
+        <result column="VERSION" property="version"/>
+        <result column="REMARK" property="remark"/>
+        <result column="CREATED_BY" property="createdBy"/>
+        <result column="CREATED_DATE" property="createdDate"/>
+        <result column="MODIFIED_BY" property="modifiedBy"/>
+        <result column="MODIFIED_DATE" property="modifiedDate"/>
+    </resultMap>
+
+    <select id="getRolesByUserId" resultMap="BaseResultMap">
+        SELECT SR.* FROM TB_SYS_USER_ROLE SUR INNER JOIN TB_SYS_ROLE SR ON SUR.ROLE_ID = SR.ID WHERE SUR.USER_ID = #{userId}  AND SR.DELETED = 0 AND SR.ENABLED = 1
+    </select>
+
+</mapper>
