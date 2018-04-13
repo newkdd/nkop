@@ -9,7 +9,7 @@
     </parent>
     <modelVersion>4.0.0</modelVersion>
 
-    <artifactId>nkop-admin-service</artifactId>
+    <artifactId>nkop-admin-server</artifactId>
 
     <dependencies>
         <!-- 服务注册所需环境 -->
