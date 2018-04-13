@@ -10,7 +10,7 @@ public class ErrorResponse  extends BasicResponse {
     /** 错误码*/
     private String code;
     /** 错误提示 */
-    private String message;
+    private String error;
     /** 堆栈错误 */
     private String stack;
 
@@ -22,12 +22,12 @@ public class ErrorResponse  extends BasicResponse {
         this.code = code;
     }
 
-    public String getMessage() {
-        return message;
+    public String getError() {
+        return error;
     }
 
-    public void setMessage(String message) {
-        this.message = message;
+    public void setError(String error) {
+        this.error = error;
     }
 
     public String getStack() {

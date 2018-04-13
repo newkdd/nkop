@@ -10,7 +10,7 @@
     <version>1.0-SNAPSHOT</version>
     <modules>
         <module>nkop-framework</module>
-        <module>nkop-admin-service</module>
+        <module>nkop-admin-server</module>
         <module>nkop-eureka-server</module>
         <module>nkop-config-server</module>
         <module>nkop-zuul-server</module>
