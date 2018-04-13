@@ -2,10 +2,13 @@ package com.newkdd.admin.config;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.newkdd.admin.service.impl.SecurityService;
+import com.newkdd.framework.basic.response.ErrorResponse;
 import com.newkdd.framework.security.SecurityHelper;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.MessageSource;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.i18n.LocaleContextHolder;
 import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.DisabledException;
 import org.springframework.security.config.annotation.ObjectPostProcessor;
@@ -24,7 +27,9 @@ import org.springframework.security.web.authentication.AuthenticationSuccessHand
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.Locale;
 
+import javax.annotation.Resource;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -35,7 +40,8 @@ import javax.servlet.http.HttpServletResponse;
 @Configuration
 @EnableGlobalMethodSecurity(prePostEnabled = true)
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
-
+    @Resource
+    private MessageSource messageSource;
     @Autowired
     SecurityService securityService;
     @Autowired
@@ -69,18 +75,21 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
             @Override
             public void onAuthenticationFailure(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse, AuthenticationException e) throws IOException, ServletException {
                 httpServletResponse.setContentType("application/json;charset=utf-8");
+                httpServletResponse.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
                 PrintWriter out = httpServletResponse.getWriter();
-                StringBuffer sb = new StringBuffer();
-                sb.append("{\"status\":\"error\",\"msg\":\"");
+                String errorCode = "";
                 if (e instanceof UsernameNotFoundException || e instanceof BadCredentialsException) {
-                    sb.append("用户名或密码输入错误，登录失败!");
+                    errorCode = "EK.ERR.400001";
                 } else if (e instanceof DisabledException) {
-                    sb.append("账户被禁用，登录失败，请联系管理员!");
+                    errorCode = "EK.ERR.400003";
                 } else {
-                    sb.append("登录失败!");
+                    errorCode = "EK.ERR.400004";
                 }
-                sb.append("\"}");
-                out.write(sb.toString());
+                Locale locale = LocaleContextHolder.getLocale();
+                String message = messageSource.getMessage(errorCode,null,locale);
+                ErrorResponse errorResponse = new ErrorResponse(errorCode,message);
+                ObjectMapper objectMapper = new ObjectMapper();
+                out.write(objectMapper.writeValueAsString(errorResponse));
                 out.flush();
                 out.close();
             }
@@ -90,7 +99,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 httpServletResponse.setContentType("application/json;charset=utf-8");
                 PrintWriter out = httpServletResponse.getWriter();
                 ObjectMapper objectMapper = new ObjectMapper();
-                String s = "{\"status\":\"success\",\"msg\":" + objectMapper.writeValueAsString(SecurityHelper.getCurrentUser()) + "}";
+                String s = objectMapper.writeValueAsString(SecurityHelper.getCurrentUser());
                 out.write(s);
                 out.flush();
                 out.close();

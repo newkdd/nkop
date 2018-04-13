@@ -14,6 +14,15 @@ public class ErrorResponse  extends BasicResponse {
     /** 堆栈错误 */
     private String stack;
 
+    public ErrorResponse(){
+
+    }
+
+    public ErrorResponse(String code,String error){
+        this.error = error;
+        this.code = code;
+    }
+
     public String getCode() {
         return code;
     }
