@@ -28,6 +28,8 @@ public class SysResourcePO extends BasicPO{
     private String parentId;
     @Column(name = "REMARK")
     private String remark;
+    @Column(name = "DISPLAY_ORDER")
+    private String displayOrder;
 
     public String getUrl() {
         return url;
@@ -99,5 +101,13 @@ public class SysResourcePO extends BasicPO{
 
     public void setRemark(String remark) {
         this.remark = remark;
+    }
+
+    public String getDisplayOrder() {
+        return displayOrder;
+    }
+
+    public void setDisplayOrder(String displayOrder) {
+        this.displayOrder = displayOrder;
     }
 }

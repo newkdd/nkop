@@ -26,4 +26,33 @@
     <select id="getResourceRoles" resultMap="BaseResultMap">
         select tr.*,tsr.ID as ROLE_ID,tsr.`NAME` as ROLE_NAME,tsr.`CODE` as ROLE_CODE from TB_SYS_RESOURCE tr left join TB_SYS_RESOURCE_ROLE trr on tr.ID=trr.RESOURCE_ID left join TB_SYS_ROLE tsr on trr.ROLE_ID=tsr.ID WHERE tr.ENABLED=1 and tr.DELETED=0 order by tr.CREATED_DATE desc
     </select>
+
+    <select id="getResourceByUserId" resultMap="BaseResultMap">
+          SELECT
+            SR.ID,
+            SR.URL,
+            SR.PATH,
+            SR.COMPONENT,
+            SR.`NAME`,
+            SR.ICON_CLASS,
+            SR.KEEP_ALIVE,
+            SR.REQUIRE_AUTH,
+            SR.PARENT_ID,
+            SR.REMARK,
+            SR.VERSION
+        FROM
+            TB_SYS_RESOURCE SR
+        INNER JOIN TB_SYS_RESOURCE_ROLE SRR ON SR.ID = SRR.RESOURCE_ID
+        AND SRR.DELETED = 0
+        AND SRR.ENABLED = 1
+        INNER JOIN TB_SYS_USER_ROLE SUR ON SRR.ROLE_ID = SUR.ROLE_ID
+        AND SUR.DELETED = 0
+        AND SUR.ENABLED = 1
+        WHERE
+            SUR.USER_ID = #{userId}
+        AND SR.DELETED = 0
+        AND SR.ENABLED = 1
+        AND SR.ID != '1'
+        ORDER BY SR.DISPLAY_ORDER
+    </select>
 </mapper>

@@ -15,7 +15,7 @@ export const initMenu = (router, store)=> {
   if (store.state.routes.length > 0) {
     return;
   }
-  getRequest("/config/sysmenu").then(resp=> {
+  getRequest("/v1/resource/web/p/resources_tree").then(resp=> {
     if (resp && resp.status == 200) {
       var fmtRoutes = formatRoutes(resp.data);
       router.addRoutes(fmtRoutes);

@@ -20,7 +20,7 @@ import io.swagger.annotations.ApiOperation;
  *
  */
 @RestController
-@RequestMapping("/user/web")
+@RequestMapping("/v1/user/web")
 @Api(value = "SysUserController", description="用户管理接口")
 public class SysUserController {
     @Autowired
@@ -33,7 +33,7 @@ public class SysUserController {
      * @return
      */
     @ApiOperation(value = "根据编码获取用户信息", notes = "根据编码获取用户信息")
-    @GetMapping(value = "v1/p/{userId}", produces = {"application/json;charset=UTF-8"})
+    @GetMapping(value = "p/{userId}", produces = {"application/json;charset=UTF-8"})
     public SysUserPO login(@PathVariable String userId, HttpServletRequest request) {
         SysUserPO sysUserPO = sysUserService.selectByPrimaryKey(userId);
         return sysUserPO;
