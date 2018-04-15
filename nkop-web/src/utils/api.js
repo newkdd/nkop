@@ -72,6 +72,23 @@ export const putRequest = (url, params) => {
     }
   });
 }
+export const patchRequest = (url, params) => {
+  return axios({
+    method: 'patch',
+    url: `${base}${url}`,
+    data: params,
+    transformRequest: [function (data) {
+      let ret = ''
+      for (let it in data) {
+        ret += encodeURIComponent(it) + '=' + encodeURIComponent(data[it]) + '&'
+      }
+      return ret
+    }],
+    headers: {
+      'Content-Type': 'application/x-www-form-urlencoded'
+    }
+  });
+}
 export const deleteRequest = (url) => {
   return axios({
     method: 'delete',

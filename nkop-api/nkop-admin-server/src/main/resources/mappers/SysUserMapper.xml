@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!--客户映射 指定到dao接口 -->
+<mapper namespace="com.newkdd.admin.dao.SysUserDAO">
+
+    <select id="selectPage"  resultType="com.newkdd.admin.model.po.SysUserPO">
+        SELECT
+            SU.ID,
+            SU.USERNAME,
+            SU.REALNAME,
+            SU.PHONE,
+            SU.EMAIL,
+            SU.REMARK,
+            (
+                SELECT
+                    T.REALNAME
+                FROM
+                    TB_SYS_USER T
+                WHERE
+                    T.ID = SU.CREATED_BY
+            ) AS CREATED_BY,
+            SU.CREATED_DATE,
+            SU.MODIFIED_DATE,
+            (
+                SELECT
+                    T.REALNAME
+                FROM
+                    TB_SYS_USER T
+                WHERE
+                    T.ID = SU.MODIFIED_BY
+            ) AS MODIFIED_BY,
+            SU.VERSION
+        FROM
+            TB_SYS_USER SU
+        WHERE
+            SU.DELETED = 0
+        <if test="record != null and record.keywords != null and record.keywords !=''">
+            AND ( REALNAME LIKE  CONCAT(CONCAT('%', #{record.keywords}), '%') OR USERNAME LIKE  CONCAT(CONCAT('%', #{record.keywords}), '%'))
+        </if>
+        <if test="record != null and record.username != null and record.username !=''">
+            AND USERNAME LIKE  CONCAT(CONCAT('%', #{record.username}), '%')
+        </if>
+        <if test="record != null and record.realname != null and record.realname !=''">
+            AND REALNAME  LIKE  CONCAT(CONCAT('%', #{record.realname}), '%')
+        </if>
+        <if test="record != null and record.phone != null and record.phone !=''">
+            AND PHONE LIKE  CONCAT(CONCAT('%', #{record.phone}), '%')
+        </if>
+        <if test="record != null and record.email != null and record.email !=''">
+            AND EMAIL LIKE  CONCAT(CONCAT('%', #{record.email}), '%')
+        </if>
+        <choose>
+            <when test="record != null and record.sortby != null and record.sortby !=''">
+                ORDER BY #{record.sortby} #{record.order}
+            </when>
+            <otherwise>
+                ORDER BY MODIFIED_DATE DESC
+            </otherwise>
+        </choose>
+    </select>
+
+</mapper>
