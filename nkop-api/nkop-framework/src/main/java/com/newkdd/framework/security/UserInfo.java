@@ -25,6 +25,8 @@ public class UserInfo implements UserDetails {
     private boolean enabled;
     /** 角色*/
     private List<Role> roles;
+    /**用户头像*/
+    private String userface;
 
     public String getId() {
         return id;
@@ -97,6 +99,14 @@ public class UserInfo implements UserDetails {
 
     public void setRoles(List<Role> roles) {
         this.roles = roles;
+    }
+
+    public String getUserface() {
+        return userface;
+    }
+
+    public void setUserface(String userface) {
+        this.userface = userface;
     }
 
     public static class Role{

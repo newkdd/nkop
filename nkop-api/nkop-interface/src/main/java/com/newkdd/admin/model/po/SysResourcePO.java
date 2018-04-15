@@ -10,6 +10,8 @@ import javax.persistence.Table;
  */
 @Table(name = "TB_SYS_RESOURCE")
 public class SysResourcePO extends BasicPO{
+    @Column(name = "TYPE")
+    private Integer type;
     @Column(name = "URL")
     private String url;
     @Column(name = "PATH")
@@ -30,6 +32,14 @@ public class SysResourcePO extends BasicPO{
     private String remark;
     @Column(name = "DISPLAY_ORDER")
     private String displayOrder;
+
+    public Integer getType() {
+        return type;
+    }
+
+    public void setType(Integer type) {
+        this.type = type;
+    }
 
     public String getUrl() {
         return url;

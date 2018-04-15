@@ -1,5 +1,7 @@
 package com.newkdd.framework.basic;
 
+import com.google.common.base.Splitter;
+
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import com.newkdd.framework.config.Constant;
@@ -12,6 +14,7 @@ import org.apache.commons.lang3.StringUtils;
 import org.springframework.core.ResolvableType;
 
 import java.sql.Timestamp;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
 
@@ -144,6 +147,32 @@ public abstract class BasicServiceImpl< T extends BasicPO> implements BasicServi
     @Override
     public int deleteByPrimaryKey(Object key)  throws BizException{
         return getMapper().deleteByPrimaryKey(key);
+    }
+
+    /**
+     * 根据编码批量、单条删除数据
+     * @param ids * 编码集合，用“,”区分
+     * @return  int 受影响的行
+     */
+    @Override
+    public int logicDelete(String ids) {
+        if(StringUtils.isBlank(ids)){
+            return 0;
+        }
+        T record = null;
+        try {
+            record = modelClass.newInstance();
+        } catch (InstantiationException e) {
+            e.printStackTrace();
+        } catch (IllegalAccessException e) {
+            e.printStackTrace();
+        }
+        record.setDeleted(Constant.DB.DELETED.YES);
+        Example example = new Example(record.getClass(),false);
+        Criteria criteria = example.createCriteria();
+        Iterable<String> arrayOfValues = Arrays.asList(ids.split(","));
+        criteria.andIn("id",arrayOfValues);
+        return getMapper().updateByExampleSelective(record,example);
     }
 
     /**

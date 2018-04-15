@@ -2,10 +2,10 @@
 
     nkop-eureka-server  ：服务注册中心
     nkop-config-server  ：配置中心
-    nkop-zuul-server    ：网关
-    nkop-framework      ：开发框架
-    nkop-interface      ：接口
-    nkop-admin-server   ：管理应用
+    nkop-zuul-server    ：API网关
+    nkop-framework      ：核心开发框架
+    nkop-interface      ：接口,实体类
+    nkop-admin-server   ：框架底层管理应用
     
 ## Restful 接口规范
 #### URL规范
@@ -104,8 +104,10 @@ DELETE /collection/resource：返回一个空文档
 ## 代码管理规范
 
 ## 数据库规范
-1、主键使用UUID，防止不同库数据合并时外键处理问题。
-2、一定要建立严格的主外键
+1. 主键使用UUID，防止不同库数据合并时外键处理问题。
+2. 一定要建立严格的主外键。
+3. 名称都为大写字母。
+
 #### 命名
 - 库：{SYSTEM}_{BIZ}
 - 表：TB_{BIZ}
@@ -113,8 +115,8 @@ DELETE /collection/resource：返回一个空文档
 - 视图：V_{BIZ}
 - 外键：FK_{TABLE}_{01}
 
-
 #### 常用列
+- DISPLAY_ORDER       bigint      显示顺序
 - VERSION             bigint      数据版本  
 - ENABLED             tinyint     数据有效：[1：有效；0：无效；]
 - DELETED             tinyint     删除状态：[1：已删除；0：未删除；]

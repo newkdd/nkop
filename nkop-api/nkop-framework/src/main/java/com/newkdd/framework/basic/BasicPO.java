@@ -10,6 +10,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.Transient;
 
 import tk.mybatis.mapper.annotation.ColumnType;
 
@@ -79,6 +80,16 @@ public class BasicPO implements Serializable {
   @ColumnType(jdbcType = JdbcType.TINYINT)
   private Integer deleted;
 
+  /** 关键词搜索*/
+  @Transient
+  private String keywords;
+  /** 排序属性*/
+  @Transient
+  private String sortby;
+  /** 排序方式 asc desc*/
+  @Transient
+  private String order;
+
   public String getId() {
     return id;
   }
@@ -141,5 +152,29 @@ public class BasicPO implements Serializable {
 
   public void setDeleted(Integer deleted) {
     this.deleted = deleted;
+  }
+
+  public String getKeywords() {
+    return keywords;
+  }
+
+  public void setKeywords(String keywords) {
+    this.keywords = keywords;
+  }
+
+  public String getSortby() {
+    return sortby;
+  }
+
+  public void setSortby(String sortby) {
+    this.sortby = sortby;
+  }
+
+  public String getOrder() {
+    return order;
+  }
+
+  public void setOrder(String order) {
+    this.order = order;
   }
 }

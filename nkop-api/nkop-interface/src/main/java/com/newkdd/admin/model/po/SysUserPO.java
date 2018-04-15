@@ -9,8 +9,6 @@ import javax.persistence.Table;
 @Table(name = "TB_SYS_USER")
 public class SysUserPO extends BasicPO {
 
-	private static final long serialVersionUID = -6695722256864729383L;
-
     /**
      * 登录账号
      */
@@ -46,6 +44,9 @@ public class SysUserPO extends BasicPO {
      */
     @Column(name = "EMAIL")
     private String email;
+    /** 用户头像*/
+    @Column(name = "USERFACE")
+    private String userface;
 
     /**
      * 最后登录IP
@@ -149,5 +150,13 @@ public class SysUserPO extends BasicPO {
 
     public void setLoginTimes(Long loginTimes) {
         this.loginTimes = loginTimes;
+    }
+
+    public String getUserface() {
+        return userface;
+    }
+
+    public void setUserface(String userface) {
+        this.userface = userface;
     }
 }

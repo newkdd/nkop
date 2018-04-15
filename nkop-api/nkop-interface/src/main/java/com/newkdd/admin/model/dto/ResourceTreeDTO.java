@@ -16,7 +16,7 @@ public class ResourceTreeDTO extends Node{
     private String name;
     /** 资源图标 */
     private String iconClass;
-    /** */
+    /** Vue内存中保留组件的状态*/
     private Integer keepAlive;
 
     public String getUrl() {

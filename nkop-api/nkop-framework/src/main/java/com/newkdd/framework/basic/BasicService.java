@@ -71,6 +71,13 @@ public interface BasicService<T extends BasicPO> {
     int deleteByPrimaryKey(Object key);
 
     /**
+     * 根据编码批量、单条删除数据
+     * @param ids * 编码集合，用“,”区分
+     * @return  int 受影响的行
+     */
+    int logicDelete(String ids);
+
+    /**
      *根据主键进行更新,这里最多只会更新一条数据
      *参数为实体类
      * @param record 对象
