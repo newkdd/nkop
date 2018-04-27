@@ -107,6 +107,13 @@
                 <version>${druid.version}</version>
             </dependency>
 
+
+            <dependency>
+                <groupId>org.apache.poi</groupId>
+                <artifactId>poi</artifactId>
+                <version>3.17</version>
+            </dependency>
+
             <dependency>
                 <groupId>com.newkdd</groupId>
                 <artifactId>nkop-framework</artifactId>
