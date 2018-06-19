@@ -11,7 +11,10 @@ const webpack = require('webpack')
 const config = require('../config')
 const webpackConfig = require('./webpack.prod.conf')
 
-const spinner = ora('building for production...')
+const spinner = ora({
+  color: 'green',
+  text: '正为生产环境打包，耐心点，不然自动关机。。。'
+})
 spinner.start()
 
 rm(path.join(config.build.assetsRoot, config.build.assetsSubDirectory), err => {
